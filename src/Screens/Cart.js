@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Header, Content, Card, CardItem, Text, Body, Footer, FooterTab, Button, Icon, Item, List, ListItem, Right } from 'native-base';
 
-import FooterTabs from '../Components/FooterTabs'
+
 const convertRupiah = require('rupiah-format')
 
 export default class Cart extends Component {
@@ -18,25 +18,26 @@ export default class Cart extends Component {
         return (
             <Container>
                 <Header style={{ backgroundColor: "#27ae60" }} >
-                    <Text style={{fontWeight: "bold", fontSize: 30, marginTop: 5, color: "white"}}>Cart</Text>
+                    <Text style={{ fontWeight: "bold", fontSize: 30, marginTop: 5, color: "white" }}>Cart</Text>
                 </Header>
                 <Content>
                     {cart.map(item => {
                         return (
                             <List>
                                 <ListItem avatar>
-                                    <Body>
+                                    <Body style={{ marginLeft: -5 }}>
                                         <Text>{item.name}</Text>
                                         <Text note>{item.count} x {convertRupiah.convert(item.price)}</Text>
                                     </Body>
                                     <Right>
-                                        <Text note>3:43 pm</Text>
+                                        <Text style={{ marginTop: 20 }}>{convertRupiah.convert(item.count * item.price)}</Text>
                                     </Right>
                                 </ListItem>
+                                <Button full light onPress={this.checkout}>
+                                    <Text>Check Out</Text>
+                                </Button>
                             </List>
                         )
-
-
                     })}
 
                 </Content>
@@ -57,7 +58,7 @@ export default class Cart extends Component {
                         </Button>
                         <Button vertical onPress={() => this.props.navigation.navigate('Login')}>
                             <Icon name="setting" type="AntDesign" />
-                            <Text>Account</Text>
+                            <Text>Setting</Text>
                         </Button>
                     </FooterTab>
                 </Footer>

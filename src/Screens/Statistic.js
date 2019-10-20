@@ -30,8 +30,8 @@ import Axios from 'axios'
 import { ScrollView } from 'react-native-gesture-handler';
 
 class Statistic extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       table: [],
       yesterday: [],
@@ -49,7 +49,7 @@ class Statistic extends Component {
   }
 
   handleTable = async () => {
-    await Axios.get("http://192.168.43.130:5000/order")
+    await Axios.get("http://54.175.58.201:5000/order")
       .then(result => {
         this.setState({
           table: result.data.data
@@ -59,7 +59,7 @@ class Statistic extends Component {
 
 
   handleIncome = async () => {
-    await Axios.get("http://192.168.43.130:5000/order/getIncome")
+    await Axios.get("http://54.175.58.201:5000/order/getIncome")
       .then(result => {
         this.setState({
           yesterday: result.data.data[0].yesterday,
@@ -79,17 +79,17 @@ class Statistic extends Component {
     return (
       <Container>
         <Header style={{ backgroundColor: "#27ae60" }} >
-          <Text style={{fontWeight: "bold", fontSize: 30, marginTop: 5, color: "white"}}>History</Text>
-          </Header>
+          <Text style={{ fontWeight: "bold", fontSize: 30, marginTop: 5, color: "white" }}>History</Text>
+        </Header>
         <ScrollView>
           <Content>
             <Card style={styles.income}>
               <CardItem>
-                <Body>
+                <Body style={{alignItems: 'center'}}>
                   <Text>
                     Today's Income
                 </Text>
-                  <Text>
+                  <Text style={{fontWeight: 'bold'}}>
                     {convertRupiah.convert(this.state.daynow)}
                   </Text>
                   <Text>
@@ -100,11 +100,11 @@ class Statistic extends Component {
             </Card>
             <Card style={styles.income}>
               <CardItem>
-                <Body>
+                <Body style={{alignItems: 'center'}}>
                   <Text>
                     Orders
                 </Text>
-                  <Text>
+                  <Text style={{fontWeight: 'bold'}}>
                     {this.state.weeknow}
                   </Text>
                   <Text>
@@ -115,11 +115,11 @@ class Statistic extends Component {
             </Card>
             <Card style={styles.income}>
               <CardItem>
-                <Body  >
+                <Body style={{alignItems: 'center'}} >
                   <Text>
                     This Year's Income
                   </Text>
-                  <Text>
+                  <Text style={{fontWeight: 'bold'}}>
                     {convertRupiah.convert(this.state.yearnow)}
                   </Text>
                   <Text>
@@ -165,7 +165,7 @@ class Statistic extends Component {
             </Button>
             <Button vertical onPress={() => this.props.navigation.navigate('Login')}>
               <Icon name="setting" type="AntDesign" />
-              <Text>Account</Text>
+              <Text>Setting</Text>
             </Button>
           </FooterTab>
         </Footer>

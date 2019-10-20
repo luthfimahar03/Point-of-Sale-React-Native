@@ -28,7 +28,7 @@ class DetailProducts extends Component {
     //     event.preventDefault()
     //     const data = new FormData(event.target)
     //     console.log(data)
-    //     await Axios.get('http://192.168.43.130:5000/products', data)
+    //     await Axios.get('http://192.168.43.1305432/products', data)
     //     .then(res => {
     //         console.log(res)
     //     })

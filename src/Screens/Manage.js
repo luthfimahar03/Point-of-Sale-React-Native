@@ -39,7 +39,7 @@ class Manage extends Component {
   }
 
   async getProducts() {
-    await Axios.get('http://192.168.43.130:5000/products')
+    await Axios.get("http://54.175.58.201:5000/products")
       .then(result => {
         this.setState({ data: result.data.data })
         console.log("Data ini terhubung")
@@ -56,6 +56,13 @@ class Manage extends Component {
     // })
   }
 
+  handleDelete = async (product) => {
+    fetch("http://54.175.58.201:5000/products/" + product,
+      {
+        method: "DELETE",
+      })
+  }
+
   render() {
     return (
       <Container>
@@ -69,23 +76,20 @@ class Manage extends Component {
                 <List>
                   <ListItem thumbnail>
                     <Left>
-                      <Thumbnail square source={{ uri: `http://192.168.43.130:5000/${item.image}` }} />
+                      <Thumbnail square source={{ uri: `http://54.175.58.201:5000/${item.image}` }} />
                     </Left>
                     <Body>
                       <Text>{item.name}</Text>
                       <Text note numberOfLines={1}>{convertRupiah.convert(item.price)}</Text>
                     </Body>
                     <Right>
-                      <Button transparent onPress={() => {
-                        this.props.navigation.navigate('DetailProducts', {
-                          id: item.id
-                        })
-                      }}>
-                        <Text>View</Text>
+                      <Button transparent onPress={() => this.handleDelete(item.id)}>
+                        <Icon name="trash" />
                       </Button>
                     </Right>
                   </ListItem>
-                </List>)
+                </List>
+              )
             })}
           </Content>
         </ScrollView>
@@ -122,7 +126,7 @@ class Manage extends Component {
             </Button>
             <Button vertical onPress={() => this.props.navigation.navigate('Login')}>
               <Icon name="setting" type="AntDesign" />
-              <Text>Account</Text>
+              <Text>Setting</Text>
             </Button>
           </FooterTab>
         </Footer>

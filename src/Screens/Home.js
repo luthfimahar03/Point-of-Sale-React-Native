@@ -4,6 +4,7 @@ const convertRupiah = require('rupiah-format')
 import { AsyncStorage } from 'react-native';
 import Cart from './Cart'
 
+
 import {
     Text,
     StyleSheet,
@@ -27,7 +28,7 @@ import {
     ActionSheet,
     Fab
 } from 'native-base'
-import FooterTabs from '../Components/FooterTabs';
+
 
 class Home extends Component {
 
@@ -51,7 +52,7 @@ class Home extends Component {
     }
 
     async getProducts() {
-        await Axios.get('http://192.168.43.130:5000/products')
+        await Axios.get("http://54.175.58.201:5000/products")
             .then(result => {
                 this.setState({ data: result.data.data })
             })
@@ -102,8 +103,8 @@ class Home extends Component {
                         <Icon name="ios-people" />
                     </Item>
                     <View style={styles.login}>
-                        <Button transparent light ><Icon active name="person"
-                        /></Button>
+                        {/* <Button transparent light ><Icon active name="person"
+                        /></Button> */}
                     </View>
                 </Header>
                 <Content>
@@ -114,7 +115,7 @@ class Home extends Component {
                                 <View>
                                     <CardItem  >
                                         <Body style={{ alignItems: "center" }} >
-                                            <Image source={{ uri: `http://192.168.43.130:5000/${item.image}` }} style={styles.image} />
+                                            <Image source={{ uri: `http://54.175.58.201:5000/${item.image}` }} style={styles.image} />
                                             <Text style={styles.judul}>{item.name}</Text>
                                             <Text style={styles.harga}>{convertRupiah.convert(item.price)}</Text>
                                             <Button style={{ backgroundColor: "#27ae60" }} onPress={() => { this.handleAddToCart(item) }}>
@@ -167,7 +168,7 @@ class Home extends Component {
                         </Button>
                         <Button vertical onPress={() => this.props.navigation.navigate('Login')}>
                             <Icon name="setting" type="AntDesign"/>
-                            <Text>Account</Text>
+                            <Text>Setting</Text>
                         </Button>
                     </FooterTab>
                 </Footer>

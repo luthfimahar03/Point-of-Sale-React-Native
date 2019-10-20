@@ -70,7 +70,7 @@ class UpdateCart extends Component {
                         </Item>
                         <Item stackedLabel>
                             <Label>Image</Label>
-                            <Button onPress={this.chooseFile.bind(this)} style={{ width: 100, borderRadius: 40, marginRight: 120 }}>
+                            <Button onPress={this.chooseFile.bind(this)} style={{ width: 100, marginRight: 120, backgroundColor: "gray" }}>
                                 <Text style={{marginLeft: 12}}>Choose File</Text></Button>
                         </Item>
                         <Item stackedLabel>

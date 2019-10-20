@@ -3,7 +3,7 @@ import Axios from 'axios'
 
 
 export const getAll = async (click) => {
-    const result = await Axios.get(`http://10.0.2.2:5000//products?limit=8&page=${click}`)
+    const result = await Axios.get(`http://10.0.2.25432//products?limit=8&page=${click}`)
     // console.log(result)
     return {
         type: 'GET_PRODUCTS_FULFILLED',
@@ -59,7 +59,7 @@ export const getAll = async (click) => {
 // export const addProducts = () => {
 //     return {
 //         type: 'ADD_PRODUCT',
-//         payload:  fetch("http://localhost:5000/products", {
+//         payload:  fetch("http://localhost5432/products", {
 //             method: "POST",
 //         })
 //     }

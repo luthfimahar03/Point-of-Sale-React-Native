@@ -16,44 +16,71 @@ import {
   View
 } from 'native-base';
 
-import {AsyncStorage } from 'react-native';
+import { AsyncStorage } from 'react-native';
 
 export default class Login extends Component {
   constructor() {
     super();
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      textUsername: '',
+      textPassword: ''
     }
+
+    AsyncStorage.getItem('user', (error, result) => {
+      if (result) {
+        let resultParsed = JSON.parse(result)
+        this.setState({
+          username: resultParsed.username,
+          password: resultParsed.password
+        });
+      }
+    });
+
   }
 
+  // await axios.post("http://54.175.58.2015432/users/login", data)
+  //   .then(res => {
+  //     this.setState({ username: })
+  //     console.log(res)
+  //     AsyncStorage.setItem('token', res.data.token);
+  //     AsyncStorage.setItem('username', res.data.username)
+  //     AsyncStorage.setItem('token', `Bearer ${res.data.token}`)
+  //     console.log(AsyncStorage.getItem('token'));
+  //     this.props.navigation.navigate('Home')
+  //   })
+  //   .catch(err => {
+  //     console.log(err)
+  //     alert('Username or Password Error')
+  //   })
 
-  handleLogin = async () => {
+  handleLogin = () => {
 
-    const data = {
-      email: this.state.username,
-      password: this.state.password
+    let username = this.state.textUsername
+    let password = this.state.textPassword
+    let data = {
+      name: name,
+      hobby: hobby
     }
-    console.log(data)
-    await axios.post("http://192.168.43.130:5000/users/login", data)
-      .then(res => {
-        AsyncStorage.setItem('token', res.data.token);
-        AsyncStorage.setItem('username', res.data.name)
-        AsyncStorage.setItem('token', `Bearer ${res.data.token}`)
-        console.log(AsyncStorage.getItem('token'));
-        this.props.navigation.navigate('Home')
-      })
-      .catch(err => {
-        console.log(err)
-        alert('Username or Password Error')
-      })
+
+    AsyncStorage.setItem('user', JSON.stringify(data));
+
+    this.setState({
+      username: username,
+      password: password
+    });
+    
+    alert('Data tersimpan')
+    {this.props.navigation.navigate('Home')}
+
   }
 
   // handleLogin = async (event) => {
   //   event.preventDefault()
   //   const data = new FormData(event.target)
   //   console.log(data)
-  //   Axios.post("http://localhost:5000/users/login", data)
+  //   Axios.post("http://localhost5432/users/login", data)
 
   //     .then(res => {
   //       if (res.status === 200) {
@@ -84,21 +111,21 @@ export default class Login extends Component {
           <Form >
             <Item stackedLabel>
               <Label>Username</Label>
-              <Input onChangeText={(text) => this.setState({ username: text })} />
+              <Input onChangeText={(textUsername) => this.setState({ textUsername })} />
             </Item>
             <Item stackedLabel last>
               <Label>Password</Label>
-              <Input onChangeText={(text) => this.setState({ password: text })} />
+              <Input secureTextEntry onChangeText={(textPassword) => this.setState({ textPassword })} />
             </Item>
             <View
               style={{ alignItems: 'center' }}>
               <Content>
-                <Button onPress={() => {this.handleLogin}} full style={{ backgroundColor: "#27ae60", borderRadius: 30, marginTop: 20 }}>
+                <Button onPress={() => { this.props.navigation.navigate('Home') }} full style={{ backgroundColor: "#27ae60", borderRadius: 30, marginTop: 20 }}>
                   <Text>Sign In</Text>
                 </Button>
-                <Button onPress={() => {this.props.navigation.navigate('Home')}} full style={{ backgroundColor: "red", borderRadius: 30, marginTop: 20 }}>
+                {/* <Button onPress={() => { this.props.navigation.navigate('Home') }} full style={{ backgroundColor: "red", borderRadius: 30, marginTop: 20 }}>
                   <Text>Langsung Masuk</Text>
-                </Button>
+                </Button> */}
               </Content>
             </View>
           </Form>
