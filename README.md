@@ -8,10 +8,10 @@
 
 - [Introduction](#introduction)
 - [Requirements](#requirements)
-- [Usage](#usage-for-development)
+- [Prerequiste](#Prerequiste)
+- [Installation](#Installation)
 - [Screenshots](#screenshots)
 - [Release APK](#release-apk)
-- [Related Project](#related-project-backend)
 
 ## `Introduction`
 <b>Point-of-Sale-React-Native</b> is mobile application about manage products for users cashier. Here, you can upload, update and delete products anytime you want on the mobile and emulator
@@ -43,7 +43,7 @@
 </div>
 
 ## `Release APK`
-<a href="https://drive.google.com/file/d/1M17CgXEEPcyWkmP7onO-p7vE4ud5Gvs3/view?usp=sharing">
+<a href="https://drive.google.com/file/d/1C53GUfchrBbe0sUxJxfOFVJtjfaARQ2m/view?usp=sharing">
   <img src="https://img.shields.io/badge/Download%20on%20the-Google%20Drive-blue.svg?style=popout&logo=google-drive"/>
 </a>
 
