@@ -135,4 +135,5 @@
   <androidx.ui/>
   <androidx.compose/>
   <com.google.androidbrowserhelper/>
+  <org.jetbrains.kotlin/>
 </metadata>

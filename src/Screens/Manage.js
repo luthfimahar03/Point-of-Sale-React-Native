@@ -24,6 +24,7 @@ import { StyleSheet } from 'react-native'
 import Axios from 'axios'
 import { FAB } from 'react-native-paper';
 import { ScrollView } from 'react-native-gesture-handler';
+import { BASE_URL } from 'react-native-dotenv'
 const convertRupiah = require('rupiah-format')
 
 class Manage extends Component {
@@ -39,7 +40,7 @@ class Manage extends Component {
   }
 
   async getProducts() {
-    await Axios.get("http://54.175.58.201:5000/products")
+    await Axios.get("http://35.153.159.15:5000/products")
       .then(result => {
         this.setState({ data: result.data.data })
         console.log("Data ini terhubung")
@@ -57,7 +58,7 @@ class Manage extends Component {
   }
 
   handleDelete = async (product) => {
-    fetch("http://54.175.58.201:5000/products/" + product,
+    fetch(`${BASE_URL}/products/` + product,
       {
         method: "DELETE",
       })
@@ -76,7 +77,7 @@ class Manage extends Component {
                 <List>
                   <ListItem thumbnail>
                     <Left>
-                      <Thumbnail square source={{ uri: `http://54.175.58.201:5000/${item.image}` }} />
+                      <Thumbnail square source={{ uri: `${BASE_URL}/${item.image}` }} />
                     </Left>
                     <Body>
                       <Text>{item.name}</Text>
@@ -110,23 +111,23 @@ class Manage extends Component {
 
 
         {/* FooterTabs */}
-        <Footer>
+        <Footer >
           <FooterTab style={{ backgroundColor: "#27ae60" }}>
             <Button vertical onPress={() => this.props.navigation.navigate('Home')}>
-              <Icon name="home" />
-              <Text>Home</Text>
+              <Icon name="home" style={{ color: "white" }} />
+              <Text style={{ color: "white" }}>Home</Text>
             </Button>
             <Button vertical onPress={() => this.props.navigation.navigate('Manage')} >
-              <Icon name="paper" />
-              <Text>Manage</Text>
+              <Icon name="paper" style={{ color: "white" }} />
+              <Text style={{ color: "white" }}>Manage</Text>
             </Button>
             <Button vertical onPress={() => this.props.navigation.navigate('Statistic')}>
-              <Icon name="pie" />
-              <Text>Statistic</Text>
+              <Icon name="pie" style={{ color: "white" }} />
+              <Text style={{ color: "white" }}>Statistic</Text>
             </Button>
             <Button vertical onPress={() => this.props.navigation.navigate('Login')}>
-              <Icon name="setting" type="AntDesign" />
-              <Text>Setting</Text>
+              <Icon name="setting" type="AntDesign" style={{ color: "white" }} />
+              <Text style={{ color: "white" }}>Setting</Text>
             </Button>
           </FooterTab>
         </Footer>

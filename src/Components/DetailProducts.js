@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Image } from 'react-native';
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Body, View, Icon, Left, transparent, Col } from 'native-base';
-
+import { BASE_URL } from 'react-native-dotenv'
 
 class DetailProducts extends Component {
     constructor(props) {
@@ -12,7 +12,7 @@ class DetailProducts extends Component {
     }
 
     detailProduct = async () => {
-        await Axios.get('http://192.168.43.130:5000/products/' + (this.state.id_product))
+        await Axios.get(`${BASE_URL}/products/` + (this.state.id_product))
         .then(res => {
             console.log(res)
         })

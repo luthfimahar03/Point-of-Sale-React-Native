@@ -1,4 +1,4 @@
-#Sat Oct 19 03:19:59 ICT 2019
+#Sun Oct 27 06:43:37 ICT 2019
 base.0=G\:\\D\\projectArkademy\\android\\app\\build\\intermediates\\transforms\\dexMerger\\release\\0
 path.0=classes.dex
 renamed.0=classes.dex

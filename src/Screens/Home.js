@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import Axios from 'axios'
 const convertRupiah = require('rupiah-format')
 import { AsyncStorage } from 'react-native';
-import Cart from './Cart'
+import { BASE_URL } from 'react-native-dotenv'
+import { connect } from "react-redux"
+
 
 
 import {
@@ -25,13 +27,12 @@ import {
     CardItem,
     Body,
     View,
-    ActionSheet,
     Fab
 } from 'native-base'
+import { getData } from '../publics/actions/products';
 
 
 class Home extends Component {
-
     constructor() {
         super()
         this.state = {
@@ -47,40 +48,30 @@ class Home extends Component {
         this.handleAddToCart = this.handleAddToCart.bind(this)
     }
 
-    async componentDidMount() {
-        this.getProducts()
+    componentDidMount() {
+        this.getProducts(), []
     }
 
     async getProducts() {
-        await Axios.get("http://54.175.58.201:5000/products")
-            .then(result => {
-                this.setState({ data: result.data.data })
-            })
-            .catch(err => {
-                console.log(err)
-            })
-        // const fetch = await getAll(this.state.clicks)
-        // this.props.dispatch(fetch)
-        // this.setState({
-        //     data: this.props.products.productList,
-        //     totalPage: this.props.products.totalPage,
-        //     totalData: this.props.products.totalData
-        // })
+        const result = await getData(this.state.clicks)
+        this.props.dispatch(result)
+        this.setState({
+            data: this.props.products.productList,
+            totalPage: this.props.products.totalPage,
+            totalData: this.props.products.totalData
+        })        
     }
 
     handleAddToCart(item) {
         this.setState(state => {
             const cartItems = state.cartItems;
             let productAlreadyInCart = false;
-
-
             cartItems.forEach(cp => {
                 if (cp.id === item.id) {
                     cp.count += 1;
                     productAlreadyInCart = true;
                 }
             });
-
             if (!productAlreadyInCart) {
                 cartItems.push({ ...item, count: 1 });
             }
@@ -90,7 +81,6 @@ class Home extends Component {
 
         });
     }
-
 
     render() {
         return (
@@ -108,14 +98,13 @@ class Home extends Component {
                     </View>
                 </Header>
                 <Content>
-
                     {this.state.data.map((item) => {
                         return (
                             <Card style={styles.card}>
                                 <View>
                                     <CardItem  >
                                         <Body style={{ alignItems: "center" }} >
-                                            <Image source={{ uri: `http://54.175.58.201:5000/${item.image}` }} style={styles.image} />
+                                            <Image source={{ uri: `${BASE_URL}/${item.image}` }} style={styles.image} />
                                             <Text style={styles.judul}>{item.name}</Text>
                                             <Text style={styles.harga}>{convertRupiah.convert(item.price)}</Text>
                                             <Button style={{ backgroundColor: "#27ae60" }} onPress={() => { this.handleAddToCart(item) }}>
@@ -138,7 +127,6 @@ class Home extends Component {
                 </Button> */}
 
                 <Fab
-
                     direction="up"
                     containerStyle={{}}
                     style={{ backgroundColor: '#ff5252', marginBottom: 50 }}
@@ -155,20 +143,20 @@ class Home extends Component {
                 <Footer >
                     <FooterTab style={{ backgroundColor: "#27ae60" }}>
                         <Button vertical onPress={() => this.props.navigation.navigate('Home')}>
-                            <Icon name="home" />
-                            <Text>Home</Text>
+                            <Icon name="home" style={{color: "white"}} />
+                            <Text style={{color: "white"}}>Home</Text>
                         </Button>
                         <Button vertical onPress={() => this.props.navigation.navigate('Manage')} >
-                            <Icon name="paper" />
-                            <Text>Manage</Text>
+                            <Icon name="paper"  style={{color: "white"}} />
+                            <Text style={{color: "white"}}>Manage</Text>
                         </Button>
                         <Button vertical onPress={() => this.props.navigation.navigate('Statistic')}>
-                            <Icon name="pie" />
-                            <Text>Statistic</Text>
+                            <Icon name="pie"  style={{color: "white"}} />
+                            <Text style={{color: "white"}}>Statistic</Text>
                         </Button>
                         <Button vertical onPress={() => this.props.navigation.navigate('Login')}>
-                            <Icon name="setting" type="AntDesign"/>
-                            <Text>Setting</Text>
+                            <Icon name="setting" type="AntDesign"  style={{color: "white"}}/>
+                            <Text style={{color: "white"}}>Setting</Text>
                         </Button>
                     </FooterTab>
                 </Footer>
@@ -177,7 +165,13 @@ class Home extends Component {
     }
 }
 
-export default Home
+const mapStateToProps = state => {
+    return {
+      products: state.products
+    }
+  }
+
+export default connect(mapStateToProps)(Home)
 
 const styles = StyleSheet.create({
     card: {
@@ -203,6 +197,7 @@ const styles = StyleSheet.create({
     },
     textbutton: {
         paddingHorizontal: 10,
+        color: "white"
     },
 
     login: {

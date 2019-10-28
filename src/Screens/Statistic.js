@@ -26,7 +26,7 @@ import {
 
 const convertRupiah = require('rupiah-format')
 import Axios from 'axios'
-
+import { BASE_URL } from 'react-native-dotenv'
 import { ScrollView } from 'react-native-gesture-handler';
 
 class Statistic extends Component {
@@ -49,7 +49,7 @@ class Statistic extends Component {
   }
 
   handleTable = async () => {
-    await Axios.get("http://54.175.58.201:5000/order")
+    await Axios.get(`${BASE_URL}/order`)
       .then(result => {
         this.setState({
           table: result.data.data
@@ -59,7 +59,7 @@ class Statistic extends Component {
 
 
   handleIncome = async () => {
-    await Axios.get("http://54.175.58.201:5000/order/getIncome")
+    await Axios.get(`${BASE_URL}/order/getIncome`)
       .then(result => {
         this.setState({
           yesterday: result.data.data[0].yesterday,
@@ -85,11 +85,11 @@ class Statistic extends Component {
           <Content>
             <Card style={styles.income}>
               <CardItem>
-                <Body style={{alignItems: 'center'}}>
+                <Body style={{ alignItems: 'center' }}>
                   <Text>
                     Today's Income
                 </Text>
-                  <Text style={{fontWeight: 'bold'}}>
+                  <Text style={{ fontWeight: 'bold' }}>
                     {convertRupiah.convert(this.state.daynow)}
                   </Text>
                   <Text>
@@ -100,11 +100,11 @@ class Statistic extends Component {
             </Card>
             <Card style={styles.income}>
               <CardItem>
-                <Body style={{alignItems: 'center'}}>
+                <Body style={{ alignItems: 'center' }}>
                   <Text>
                     Orders
                 </Text>
-                  <Text style={{fontWeight: 'bold'}}>
+                  <Text style={{ fontWeight: 'bold' }}>
                     {this.state.weeknow}
                   </Text>
                   <Text>
@@ -115,11 +115,11 @@ class Statistic extends Component {
             </Card>
             <Card style={styles.income}>
               <CardItem>
-                <Body style={{alignItems: 'center'}} >
+                <Body style={{ alignItems: 'center' }} >
                   <Text>
                     This Year's Income
                   </Text>
-                  <Text style={{fontWeight: 'bold'}}>
+                  <Text style={{ fontWeight: 'bold' }}>
                     {convertRupiah.convert(this.state.yearnow)}
                   </Text>
                   <Text>
@@ -149,23 +149,23 @@ class Statistic extends Component {
           </Content>
         </ScrollView>
         {/* FooterTabs */}
-        <Footer>
+        <Footer >
           <FooterTab style={{ backgroundColor: "#27ae60" }}>
             <Button vertical onPress={() => this.props.navigation.navigate('Home')}>
-              <Icon name="home" />
-              <Text>Home</Text>
+              <Icon name="home" style={{ color: "white" }} />
+              <Text style={{ color: "white" }}>Home</Text>
             </Button>
             <Button vertical onPress={() => this.props.navigation.navigate('Manage')} >
-              <Icon name="paper" />
-              <Text>Manage</Text>
+              <Icon name="paper" style={{ color: "white" }} />
+              <Text style={{ color: "white" }}>Manage</Text>
             </Button>
             <Button vertical onPress={() => this.props.navigation.navigate('Statistic')}>
-              <Icon name="pie" />
-              <Text>Statistic</Text>
+              <Icon name="pie" style={{ color: "white" }} />
+              <Text style={{ color: "white" }}>Statistic</Text>
             </Button>
             <Button vertical onPress={() => this.props.navigation.navigate('Login')}>
-              <Icon name="setting" type="AntDesign" />
-              <Text>Setting</Text>
+              <Icon name="setting" type="AntDesign" style={{ color: "white" }} />
+              <Text style={{ color: "white" }}>Setting</Text>
             </Button>
           </FooterTab>
         </Footer>

@@ -14,6 +14,8 @@ import {
 import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
+import { Provider } from "react-redux"
+import store from "./src/publics/store"
 
 import MainNavigation from './src/Navigator'
 
@@ -23,11 +25,13 @@ class App extends Component {
 
   render() {
     return (
-      // <Provider store={store}>
-        <>
+
+      <>
+        <Provider store={store}>
           <MainNavigation />
-        </>
-      // </Provider>
+        </Provider>
+      </>
+
 
     )
   }
